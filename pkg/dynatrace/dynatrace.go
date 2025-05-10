@@ -277,7 +277,7 @@ func (dynatraceApiClient *DynatraceApiClient) DeleteDynatraceHttpMonitor(monitor
 	path := fmt.Sprintf("/synthetic/monitors/%s", monitorId)
 
 	resp, err := dynatraceApiClient.MakeRequest(http.MethodDelete, path, "")
-	if err != nil {
+	if err != nil && resp.StatusCode != http.StatusNotFound {
 		return err
 	}
 	defer resp.Body.Close()
